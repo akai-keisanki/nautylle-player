@@ -2,12 +2,16 @@
 
 import "@/app/player_styles.css";
 import PlayerControls from "./player-controls";
+import PlayerProgress from "./player-progress";
 
 export default function PlayerBase() {
   return (
-    <div id="controllers">
-      <div id="art">ART</div>
-      <PlayerControls />
-    </div>
+    <>
+      <div id="controllers">
+        <div id="art">ART</div>
+        <PlayerProgress />
+        <PlayerControls />
+      </div>
+    </>
   );
 }

@@ -3,10 +3,11 @@
 import { FileNode } from "@/models/file-node";
 import { useEffect, useState } from "react";
 import { getFileStructure } from "@/app/actions";
+import { usePlayerContext } from "@/context/player-context";
 
 export default function Explorer() {
   const [files, setFiles] = useState<FileNode[]>([]);
-  const [selectedFile, setSelectedFile] = useState<string>();
+  const { selectedFile, setSelectedFile } = usePlayerContext();
 
   useEffect(() => {
     fetchFileTree();
@@ -60,11 +61,9 @@ export default function Explorer() {
     </ul>
   );
 
-  const audioSrc = `/api/stream/${encodeURIComponent(selectedFile || "")}`;
   return (
     <div>
       <div className="p-8">
-        {selectedFile && audioSrc && <audio src={audioSrc} controls></audio>}
         <h1 className="text-2xl font-bold mb-4">Audio Library Structure</h1>
         {renderTree(files)}
       </div>

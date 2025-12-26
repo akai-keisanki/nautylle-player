@@ -11,9 +11,17 @@ import {
 import { Toggle } from "../ui/toggle";
 import { Switch } from "../ui/switch";
 import { Label } from "../ui/label";
+import { usePlayerContext } from "@/context/player-context";
+import { ArrowLeft, ArrowRight, Pause, Play, Shuffle } from "lucide-react";
 
 export default function PlayerControls() {
-  function playPause() {}
+  const { playing, setPlaying, selectedFile, howl, setProgress } =
+    usePlayerContext();
+
+  function playPause() {
+    setPlaying(!playing);
+    howl?.playing() ? howl.pause() : howl.play();
+  }
 
   function nextTrack() {}
   function previousTrack() {}
@@ -27,13 +35,23 @@ export default function PlayerControls() {
   return (
     <>
       <div id="playlist-controllers" className="controller-group">
-        <Toggle onClick={toggleShuffle}>Shuffle</Toggle>
-        <Toggle onClick={toggleFollow}>Follow</Toggle>
+        <Toggle disabled={!selectedFile} onClick={toggleShuffle}>
+          <Shuffle />
+        </Toggle>
+        <Toggle disabled={!selectedFile} onClick={toggleFollow}>
+          Follow
+        </Toggle>
       </div>
       <div id="play-controllers" className="controller-group">
-        <Button onClick={previousTrack}>Previous</Button>
-        <Button onClick={playPause}>Play</Button>
-        <Button onClick={nextTrack}>Next</Button>
+        <Button disabled={!selectedFile} onClick={previousTrack}>
+          <ArrowLeft />
+        </Button>
+        <Button disabled={!selectedFile} onClick={playPause}>
+          {playing ? <Pause /> : <Play />}
+        </Button>
+        <Button disabled={!selectedFile} onClick={nextTrack}>
+          <ArrowRight />
+        </Button>
       </div>
       <div id="menu-controllers" className="controller-group">
         <Drawer>
