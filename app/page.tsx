@@ -14,11 +14,14 @@ import {
 import { Toggle } from "@/components/ui/toggle";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import Explorer from "@/components/explorer";
 
 export default function Home() {
   return (
     <main>
-      <div id="selector">SELECTOR</div>
+      <div id="selector">
+        <Explorer />
+      </div>
       <div id="controllers">
         <div id="art">ART</div>
         <div id="playlist-controllers" className="controller-group">
