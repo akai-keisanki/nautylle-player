@@ -10,9 +10,7 @@ export default function Home() {
         <Explorer />
       </div>
       <PlayerBase />
-      <footer className="text-center my-2">
-        Copyright (c) 2025 sudo akai-keisanki --boot -fyv
-      </footer>
+      <footer>Copyright (c) 2025 sudo akai-keisanki --boot -fyv</footer>
     </main>
   );
 }

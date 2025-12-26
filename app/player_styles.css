@@ -56,7 +56,9 @@ main {
   justify-content: center;
 }
 
-.controller-group {
+#playlist-controllers,
+#menu-controllers,
+#play-controller-buttons {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -71,6 +73,17 @@ main {
 
 #play-controllers {
   grid-area: play-controllers;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+
+  gap: 1vh;
+}
+
+#play-controllers {
+  grid-area: play-controllers;
 }
 
 #menu-controllers {
@@ -79,6 +92,11 @@ main {
 
 footer {
   grid-area: footer;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 
   background-color: black;
 }
@@ -97,8 +115,9 @@ footer {
   gap: 2vh;
 }
 
-.selector-tree {
+#selector-tree {
   width: 100%;
+  height: 80vh;
 }
 
 .tree-disc,
@@ -120,6 +139,7 @@ footer {
 }
 
 .tree-album {
+  margin-top: 4vh;
   border-bottom: solid 2px #fff;
   gap: 2vh;
 }

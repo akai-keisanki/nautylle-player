@@ -40,6 +40,7 @@ export async function getFileStructure(
           name: file.name,
           type: "text",
           path: relativePath,
+          text: fs.readFileSync(path.join(dir, file.name), "utf-8").split("\n"),
         };
       }
 

@@ -14,6 +14,8 @@ import { Label } from "../ui/label";
 import { usePlayerContext } from "@/context/player-context";
 import { ArrowLeft, ArrowRight, Pause, Play, Shuffle } from "lucide-react";
 
+import PlayerProgress from "./player-progress";
+
 export default function PlayerControls() {
   const { playing, setPlaying, selectedFile, howl, setProgress } =
     usePlayerContext();
@@ -34,7 +36,7 @@ export default function PlayerControls() {
 
   return (
     <>
-      <div id="playlist-controllers" className="controller-group">
+      <div id="playlist-controllers">
         <Toggle disabled={!selectedFile} onClick={toggleShuffle}>
           <Shuffle />
         </Toggle>
@@ -42,18 +44,21 @@ export default function PlayerControls() {
           Follow
         </Toggle>
       </div>
-      <div id="play-controllers" className="controller-group">
-        <Button disabled={!selectedFile} onClick={previousTrack}>
-          <ArrowLeft />
-        </Button>
-        <Button disabled={!selectedFile} onClick={playPause}>
-          {playing ? <Pause /> : <Play />}
-        </Button>
-        <Button disabled={!selectedFile} onClick={nextTrack}>
-          <ArrowRight />
-        </Button>
+      <div id="play-controllers">
+        <PlayerProgress />
+        <div id="play-controller-buttons">
+          <Button disabled={!selectedFile} onClick={previousTrack}>
+            <ArrowLeft />
+          </Button>
+          <Button disabled={!selectedFile} onClick={playPause}>
+            {playing ? <Pause /> : <Play />}
+          </Button>
+          <Button disabled={!selectedFile} onClick={nextTrack}>
+            <ArrowRight />
+          </Button>
+        </div>
       </div>
-      <div id="menu-controllers" className="controller-group">
+      <div id="menu-controllers">
         <Drawer>
           <DrawerTrigger asChild>
             <Button>Options...</Button>

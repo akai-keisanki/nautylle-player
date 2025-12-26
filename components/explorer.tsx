@@ -1,9 +1,23 @@
 "use client";
 
+import path from "path";
+
 import { FileNode } from "@/models/file-node";
 import { useEffect, useState } from "react";
 import { getFileStructure } from "@/app/actions";
 import { usePlayerContext } from "@/context/player-context";
+
+import { Button } from "@/components/ui/button";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerFooter,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function Explorer() {
   const [files, setFiles] = useState<FileNode[]>([]);
@@ -12,7 +26,6 @@ export default function Explorer() {
   useEffect(() => {
     fetchFileTree();
   }, []);
-
   async function fetchFileTree() {
     const r = await getFileStructure();
     setFiles(r);
@@ -35,7 +48,28 @@ export default function Explorer() {
     if (node.type === "text")
       return (
         <div className="tree-item">
-          📄 <span>{node.name}</span>
+          <Drawer>
+            <DrawerTrigger>
+              📄 <span>{node.name}</span>
+            </DrawerTrigger>
+            <DrawerContent>
+              <DrawerFooter>
+                <DrawerHeader>
+                  <DrawerTitle>
+                    📄 <span>{node.name}</span>
+                  </DrawerTitle>
+                </DrawerHeader>
+                <ScrollArea className="h-[40vh] px-[20vw]">
+                  {node.text.map((x, i) => (
+                    <p key={i}>{x}</p>
+                  ))}
+                </ScrollArea>
+                <DrawerClose asChild>
+                  <Button>Close</Button>
+                </DrawerClose>
+              </DrawerFooter>
+            </DrawerContent>
+          </Drawer>
         </div>
       );
 
@@ -80,10 +114,5 @@ export default function Explorer() {
     </ul>
   );
 
-  return (
-    <div className="selector-tree">
-      <h1 className="text-2xl font-bold mb-4">Audio Library Structure</h1>
-      {renderTree(files)}
-    </div>
-  );
+  return <ScrollArea id="selector-tree">{renderTree(files)}</ScrollArea>;
 }
