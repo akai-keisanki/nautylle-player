@@ -23,7 +23,7 @@ export default function Explorer() {
       return (
         <div
           style={{ fontWeight: selectedFile === node.path ? 700 : 400 }}
-          className="flex items-center gap-2 text-gray-700 cursor-pointer hover:underline"
+          className="tree-item"
           onClick={() => {
             setSelectedFile(node.path);
           }}
@@ -34,25 +34,44 @@ export default function Explorer() {
 
     if (node.type === "text")
       return (
-        <div className="flex items-center gap-2 text-gray-700 cursor-pointer hover:underline">
+        <div className="tree-item">
           📄 <span>{node.name}</span>
         </div>
       );
 
     if (node.type === "cover") return;
 
-    return (
-      <details open>
-        <summary className="font-bold cursor-pointer hover:text-blue-500">
-          📁 {node.name}
-        </summary>
-        {node.children && renderTree(node.children)}
-      </details>
-    );
+    if (node.children.some((x) => x.type == "cover")) {
+      let albumInfo = node.name.split(" - ");
+
+      return (
+        <details open>
+          <summary className="tree-album">
+            <img
+              className="tree-cover"
+              src={`/musicfiles/${node.children.find((x) => x.type == "cover").path}`}
+            />
+            <div className="tree-album-div">
+              <div className="tree-album-title">{albumInfo[1]}</div>
+              <div className="tree-album-desc">
+                {albumInfo[0]} | album | {albumInfo[2]}
+              </div>
+            </div>
+          </summary>
+          {node.children && renderTree(node.children)}
+        </details>
+      );
+    } else
+      return (
+        <details open>
+          <summary className="tree-disc">💿 {node.name}</summary>
+          {node.children && renderTree(node.children)}
+        </details>
+      );
   }
 
   const renderTree = (nodes: FileNode[]) => (
-    <ul className="pl-4 border-l border-gray-300">
+    <ul className="selector-tree">
       {nodes.map((node) => (
         <li key={node.path} className="my-2">
           {renderNodeType(node)}
@@ -62,11 +81,9 @@ export default function Explorer() {
   );
 
   return (
-    <div>
-      <div className="p-8">
-        <h1 className="text-2xl font-bold mb-4">Audio Library Structure</h1>
-        {renderTree(files)}
-      </div>
+    <div className="selector-tree">
+      <h1 className="text-2xl font-bold mb-4">Audio Library Structure</h1>
+      {renderTree(files)}
     </div>
   );
 }
