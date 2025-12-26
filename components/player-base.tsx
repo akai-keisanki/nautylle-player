@@ -3,10 +3,6 @@
 import { Button } from "./ui/button";
 import { Slider } from "./ui/slider";
 
-interface PlayerBaseProps {
-  stream: string;
-}
-
 export default function PlayerBase() {
   function playPause() {}
 

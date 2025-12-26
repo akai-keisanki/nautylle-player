@@ -10,16 +10,13 @@ export async function GET(
   const { filename } = await params;
   const filePath = path.join(audioDirectory, filename);
 
-  // 1. Check if file exists
   if (!fs.existsSync(filePath)) {
     return new NextResponse("File Not Found", { status: 404 });
   }
 
-  // 2. Get file stats for headers
   const stats = fs.statSync(filePath);
   const data = fs.createReadStream(filePath);
 
-  // 3. Return the stream with correct headers
   return new NextResponse(data as any, {
     headers: {
       "Content-Type": "audio/mpeg", // or 'audio/wav'
