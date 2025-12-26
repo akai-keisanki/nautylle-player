@@ -1,0 +1,98 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  display: grid;
+  grid-template-areas: "selector controllers" "footer footer";
+  grid-template-columns: 1fr 1.5fr;
+  grid-template-rows: auto 5vh;
+
+  width: 100vw;
+  height: 100vh;
+
+  margin: 0;
+  padding: 0;
+  gap: 0;
+
+  background-color: #000000;
+  color: #ffffff;
+}
+
+#selector {
+  grid-area: selector;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  padding: max(3vh, 3vw);
+
+  background-image: linear-gradient(to bottom, #000, #133 30vh, #000);
+}
+
+#controllers {
+  grid-area: controllers;
+
+  display: grid;
+  grid-template-areas: "art art art" "playlist-controllers play-controllers menu-controllers";
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto 10vh;
+
+  padding: 2vh;
+  gap: 2vh;
+
+  background-color: #000;
+}
+
+#art {
+  grid-area: art;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.controller-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  gap: 1vw;
+}
+
+#playlist-controllers {
+  grid-area: playlist-controllers;
+}
+
+#play-controllers {
+  grid-area: play-controllers;
+}
+
+#menu-controllers {
+  grid-area: menu-controllers;
+}
+
+footer {
+  grid-area: footer;
+
+  background-color: black;
+}
+
+.swg {
+  display: flex;
+  flex-direction: row;
+
+  gap: 1vh;
+}
+
+#options-drawer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2vh;
+}
