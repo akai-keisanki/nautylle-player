@@ -43,6 +43,14 @@ export async function getFileStructure(
         };
       }
 
+      if (file.name.endsWith(".png")) {
+        return {
+          name: file.name,
+          type: "cover",
+          path: relativePath,
+        };
+      }
+
       return {
         name: file.name,
         type: "file",

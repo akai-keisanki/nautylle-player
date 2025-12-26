@@ -38,6 +38,8 @@ export default function Explorer() {
         </div>
       );
 
+    if (node.type === "cover") return;
+
     return (
       <details open>
         <summary className="font-bold cursor-pointer hover:text-blue-500">
